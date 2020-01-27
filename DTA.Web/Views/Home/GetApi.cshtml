@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "ForDevelopers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="my_account_area pt--80 pb--55 bg--white">
+    <div class="container">
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-lg-8 col-12">
+                <div class="my__account__wrapper">
+                    <h2>Getting Started with Bookstor API</h2>
+                    <br />
+                    <div class="container">
+
+                        <p>Bookstor.net offers open data to developers in an API. The data is free to use and contains information about all our books.
+                        The result is returned as JSON.</p><br />
+                        <p>For more information feel free to send us an email at developerszone@bookstor.net .</p>
+
+                        <br />
+                        <br />
+                        <button class="reg__btn">@Html.ActionLink("Get Books Api", "BooksApi", "api") </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br />

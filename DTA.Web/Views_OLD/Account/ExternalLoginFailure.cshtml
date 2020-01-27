@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Login Failure";
+}
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Start My Account Area -->
+<section class="my_account_area pt--80 pb--55 bg--white">
+    <div class="container">
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-lg-8 col-12">
+                <div class="my__account__wrapper">
+                    <hgroup>
+                        <h2>@ViewBag.Title.</h2>
+                        <h3>Your login with this service was unsuccessful.</h3>
+                        <br />
+                        <h3>@Html.ActionLink("Please click here to try again.", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</h3>
+                    </hgroup>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br />
+<!-- End My Account Area -->
+

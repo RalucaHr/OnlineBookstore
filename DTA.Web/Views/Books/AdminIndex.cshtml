@@ -1,0 +1,94 @@
+﻿@model PagedList.IPagedList<DTA.Entities.Book>
+@using PagedList;
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Edit Books";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <!-- Default box -->
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="mb-2">All Books</h1>
+                        <br />
+                        <p>
+                            @Html.ActionLink("Create New Book", "Create")
+                        </p>
+                        @using (Html.BeginForm("AdminIndex", "Books", FormMethod.Get))
+                        {
+                            <p>
+                                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                                <button type="submit" class="btn btn-dark"> Search </button>
+                            </p>
+                        }
+                        <br />
+
+                    </div>
+                    <div class="card-body">
+
+
+                        <!-- Main content -->
+                        <section class="content">
+                            <div class="container-fluid">
+
+                                <br />
+
+                                <div class="row">
+
+                                    @foreach (var item in Model)
+                                    {
+
+                                        <div class="col-md-4 col-sm-6 col-12">
+                                            <div class="info-box">
+                                                <span class="info-box-icon"><img src="@Url.Content(item.Cover)" /></span>
+
+                                                <div class="info-box-content">
+                                                    <span class="info-box-number">@Html.DisplayFor(modelItem => item.Title)</span>
+                                                    <span class="info-box-text">Category : @Html.DisplayFor(modelItem => item.Category.Title)</span>
+                                                    <span class="info-box-text">@Html.DisplayNameFor(model => item.Price) : @Html.DisplayFor(modelItem => item.Price)</span>
+                                                    <span class="info-box-text">@Html.DisplayNameFor(model => item.ISBN) : @Html.DisplayFor(modelItem => item.ISBN)</span>
+
+                                                    <br />
+                                                    <strong>
+                                                        @Html.ActionLink("Edit", "Edit", new { id = item.BookId }) |
+                                                        @Html.ActionLink("Details", "AdminDetails", new { id = item.BookId }) |
+                                                        @Html.ActionLink("Delete", "Delete", new { id = item.BookId })
+                                                    </strong>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+
+                                Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Books
+
+                                @Html.PagedListPager(Model, page => Url.Action("AdminIndex",
+                                    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+                            </div>
+
+                        </section>
+                        <!-- /.content -->
+
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->
+
+

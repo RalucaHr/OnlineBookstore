@@ -1,0 +1,136 @@
+﻿<!-- Header -->
+<header id="wn__header" class="header__area header__absolute sticky__header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-6 col-lg-2">
+                <div class="logo">
+                    <a href="">
+                        <img src="~/images/logo/logo.png" alt="logo images">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-8 d-none d-lg-block">
+                <nav class="mainmenu__nav">
+                    <ul class="meninmenu d-flex justify-content-start">
+                        <li class="drop with--one--item">@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li class="drop with--one--item">@Html.ActionLink("Books", "Index", "Books")</li>
+                        <li class="drop with--one--item">@Html.ActionLink("About us", "About", "Home")</li>
+
+
+                        @*@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+        {
+            <li class="drop">
+                <a href="">Admin</a>
+                <div class="megamenu dropdown">
+                    <ul class="item item01">
+                        <li class="title">Edit</li>
+                        <li class="drop with--one--item">@Html.ActionLink("Books", "AdminIndex", "Books")</li>
+                        <li class="drop with--one--item">@Html.ActionLink("Authors", "Index", "Authors")</li>
+                        <li class="drop with--one--item">@Html.ActionLink("Categories", "Index", "Categories")</li>
+                    </ul>
+                </div>
+            </li>
+        }*@
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-6 col-lg-2">
+                <ul class="header__sidebar__right d-flex justify-content-end align-items-center">
+                    <li class="shopcart">
+                        @Html.ActionLink(" ", "Cart", "Ecommerce")
+                    </li>
+
+                    <li class="setting__bar__icon">
+                        <a class="setting__active" href="#"></a>
+                        <div class="searchbar__content setting__block">
+                            <div class="content-inner">
+                                <div class="switcher-currency">
+                                    <strong class="label switcher-label">
+                                        <span>My Account</span>
+                                    </strong>
+                                    <div class="switcher-options">
+                                        <div class="switcher-currency-trigger">
+                                            <div class="setting__menu">                                               
+                                                <span>@Html.ActionLink("My Account", "Index", "Manage")</span>
+                                                <span>@Html.ActionLink("Dashboard", "Index", "AdminDashboard")</span>
+                                                <span>
+                                                    @using Microsoft.AspNet.Identity
+                                                    @if (Request.IsAuthenticated)
+                                                    {
+                                                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                                        {
+                                                            @Html.AntiForgeryToken()
+
+                                                            <ul class="nav navbar-nav navbar-right">
+                                                                <li>
+                                                                    @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                                                                </li>
+                                                                <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                                                            </ul>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <ul class="nav navbar-nav navbar-right">
+                                                            <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                                                            <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                                                        </ul>
+                                                    }
+
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Start Mobile Menu -->
+        <div class="row d-none">
+            <div class="col-lg-12 d-none">
+                <nav class="mobilemenu__nav">
+                    <ul class="meninmenu">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Books", "Index", "Books")</li>
+                        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <li>
+                                <a href="">Admin</a>
+                                <ul>
+                                    <li>@Html.ActionLink("Edit Books", "AdminIndex", "Books")</li>
+                                    <li>@Html.ActionLink("Edit Authors", "Index", "Authors")</li>
+                                    <li>@Html.ActionLink("Edit Categories", "Index", "Categories")</li>
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- End Mobile Menu -->
+        <div class="mobile-menu d-block d-lg-none">
+        </div>
+        <!-- Mobile Menu -->
+    </div>
+</header>
+<!-- //Header -->
+
+<!-- Start Search Popup -->
+<div class="brown--color box-search-content search_active block-bg close__top">
+    <form id="search_mini_form" class="minisearch" action="#">
+        <div class="field__search">
+            <input type="text" placeholder="Search entire store here...">
+            <div class="action">
+                <a href="#"><i class="zmdi zmdi-search"></i></a>
+            </div>
+        </div>
+    </form>
+    <div class="close__wrap">
+        <span>close</span>
+    </div>
+</div>
+<!-- End Search Popup -->

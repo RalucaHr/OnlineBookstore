@@ -1,0 +1,124 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Contact";
+}
+
+
+<!-- Start About Area -->
+<div class="page-about about_area bg--white section-padding--lg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section__title--3 text-center pb--30">
+                    <br />
+                    <h2>@ViewBag.Title.</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-lg-8 col-sm-12 col-12">
+                <!--The div element for the map -->
+                <div id="map" style="height: 400px; width: 100%;"></div>
+
+            </div>
+            <div class="col-lg-4 col-sm-12 col-12">
+                <div class="wn__address">
+                    <h2 class="contact__title">Where you can find us</h2>
+                    <p>
+                        Curious about books? Intrested on leanring more about our philosophy?
+                        Come and find us!! 
+                    </p>
+                    <div class="wn__addres__wreapper">
+
+                        <div class="single__address">
+                            <i class="icon-location-pin icons"></i>
+                            <div class="content">
+                                <span>Location no1:</span>
+                                <p>3, Korai Str, Athens 105 64</p>
+                            </div>
+                        </div>
+
+                        <div class="single__address">
+                            <i class="icon-location-pin icons"></i>
+                            <div class="content">
+                                <span>Location no2:</span>
+                                <p>1, Karagiorgi Servias, Athens 105 63</p>
+                            </div>
+                        </div>
+
+                        <div class="single__address">
+                            <i class="icon-location-pin icons"></i>
+                            <div class="content">
+                                <span>Location no3:</span>
+                                <p>3, Skoufa, Athens 106 73</p>
+                            </div>
+                        </div>
+
+                        <div class="single__address">
+                            <i class="icon-phone icons"></i>
+                            <div class="content">
+                                <span>Phone Number:</span>
+                                <p>210-298-1822</p>
+                            </div>
+                        </div>
+
+                        <div class="single__address">
+                            <i class="icon-envelope icons"></i>
+                            <div class="content">
+                                <span>Email address:</span>
+                                <p>info@bookstor.com</p>
+                            </div>
+                        </div>
+
+                        <div class="single__address">
+                            <i class="icon-globe icons"></i>
+                            <div class="content">
+                                <span>website address:</span>
+                                <p>bookstor.com</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End About Area -->
+
+<script>
+    //// Initialize and add the map
+    function initMap() {
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 15.5,
+        center: {lat: 37.9785405, lng: 23.7350655}
+      });
+
+      setMarkers(map);
+    }
+
+    // Data for the markers consisting of a name, a LatLng and a zIndex for the
+    // order in which these markers should display on top of each other.
+    var storeLocations = [
+      ['Sintagma', 37.9761052, 23.733769237],
+      ['Skoufa', 37.9773777, 23.738214],
+      ['Korai', 37.980387, 23.733052]
+    ];
+
+    function setMarkers(map) {
+      // Adds markers to the map.
+      for (var i = 0; i < storeLocations.length; i++) {
+        var storeLocation = storeLocations[i];
+        var marker = new google.maps.Marker({
+          position: {lat: storeLocation[1], lng: storeLocation[2]},
+          map: map,
+        });
+      }
+    }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzwIZCLLj5kpsjVb9xG_JFxPMp-CXbzwM&callback=initMap">
+</script>

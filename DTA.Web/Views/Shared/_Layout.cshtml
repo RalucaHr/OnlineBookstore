@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - BOOKSTOR</title>
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="~/images/favicon.ico">
+    <link rel="apple-touch-icon" href="~/images/icon.png">
+
+    <!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,600,600i,700,700i,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/plugins.css">
+    <link rel="stylesheet" href="~/css/style.css">
+
+    <!-- Custom css -->
+    @*<link rel="stylesheet" href="css/custom.css">*@
+
+    <!-- Modernizer js -->
+    <script src="~/js/vendor/modernizr-3.5.0.min.js"></script>
+
+</head>
+<body>
+    <div class="wrapper" id="wrapper">
+        
+        @Html.Partial("_Header")
+
+        <section>
+
+            @RenderBody()
+
+            <hr />
+
+            @Html.Partial("_Footer")   
+            
+        </section>
+
+
+    </div>
+    <script>
+       var xElement = document.getElementById("CartIcon");
+        xElement.innerHTML = sessionStorage.clickcount || 0;
+
+        
+
+        function increaseCartIcon() {
+            if (document.getElementById("qty") !== null) {
+                var quantityValue = document.getElementById("qty").value || 1;
+            } else {
+                var quantityValue =1;
+            }
+            if (typeof (Storage) !== "undefined") {
+                if (sessionStorage.clickcount) {
+                    sessionStorage.clickcount = Number(sessionStorage.clickcount) + Number(quantityValue);
+                } else {
+                    sessionStorage.clickcount = 1;
+                }
+                document.getElementById("CartIcon").innerHTML = sessionStorage.clickcount;
+            } else {
+                document.getElementById("CartIcon").innerHTML = "Sorry, your browser does not support web storage...";
+            }
+        }
+        
+        
+        //function updateCartIcon(bookId) {
+        //     var x = document.getElementById(bookId);
+        //     if (Number(sessionStorage.clickcount) > 0) {
+        //         sessionStorage.clickcount = (sessionStorage.clickcount) - x.value;
+        //     }
+        //     document.getElementById("CartIcon").innerHTML = sessionStorage.clickcount;
+        //     alert("hello");
+        //};
+    </script>
+
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/plugins.js"></script>
+    <script src="~/js/Active.js"></script>
+    
+    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

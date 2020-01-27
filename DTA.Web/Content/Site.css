@@ -1,0 +1,61 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+.new__btn .form__btn {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: 2px solid #333;
+    color: #333;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 34px;
+    padding: 2px 20px 0;
+    text-transform: uppercase;
+    transition: all 0.4s ease 0s;
+}
+
+    .new__btn .form__btn:hover {
+        background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+        border-color: #e59285;
+        color: #e59285;
+    }
+
+    .new__btn .form__btn span {
+        color: #333;
+        font-size: 12px;
+    }
+
+.new__btn .forget_pass {
+    color: #e59285;
+    font-size: 12px;
+    margin-top: 18px;
+    display: block;
+}
+
+.new__btn .form__btn .checkbox {
+    margin-bottom: 0;
+    margin-left: 10px;
+}

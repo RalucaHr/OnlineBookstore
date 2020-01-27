@@ -1,0 +1,215 @@
+﻿@model IEnumerable<DTA.Entities.Category>
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <!-- Default box -->
+                <div class="card">
+
+                    <div class="card-header">
+                        <h1 class="mb-2">Chart Data</h1>
+                    </div>
+
+                    <div class="card-body">
+                        <!-- Main content -->
+                        <section class="content">
+                            <br />
+                            <div class="container-fluid">
+
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="ibox ">
+                                            <div class="ibox-title">
+                                                <h5>
+                                                    Income
+                                                    <small>Past 6 months.</small>
+                                                </h5>
+                                                <div ibox-tools></div>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div>
+                                                    <canvas id="lineChart" height="150"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="ibox ">
+                                            <div class="ibox-title">
+                                                <h5>
+                                                    Half-Year Revenue Margin
+                                                    <small>Sales marketing.</small>
+                                                </h5>
+                                            </div>
+                                            <div class="ibox-content">
+                                                <div>
+                                                    <canvas id="barChart" height="164"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <br />
+                                <br />
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="ibox ">
+                                            <div class="ibox-title">
+                                                <h5>BOOKS <small>by category</small></h5>
+                                            </div>
+                                            <br />
+                                            <div class="ibox-content">
+                                                <div>
+                                                    <ul>
+                                                        @foreach (var item in Model)
+                                                        {
+                                                            @*<li>Fantasy(12)</li>
+                                                                <li>Science Fiction(7)</li>
+                                                                <li>Novel(8)</li>
+                                                                <li>Manga(6)</li>
+                                                                <li>Popular Science(4)</li>
+                                                                <li>Personal Development(4)</li>
+                                                                <li>Philosophy(3)</li>
+                                                                <li>Music(6)</li>
+                                                                <li>Art(3)</li>*@
+                                                            <li>@item.Title<span>(@item.Books.Count())</span></li>
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="ibox ">
+                                            <div class="ibox-content">
+                                                <div>
+                                                    <canvas id="doughnutChart" height="140"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </section>
+                        <!-- /.content -->
+
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->
+
+
+<script src="~/js/Chart.js"></script>
+<script src="~/js/vendor/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        //  Income Chart
+
+        var lineData = {
+            labels: ["May", "June", "July", "August", "September", "October", "November"],
+            datasets: [
+
+                {
+                    label: "2019",
+                    backgroundColor: "#D9977A",
+                    borderColor: "#ce7852",
+                    pointBackgroundColor: "#6C4B3D",
+                    pointBorderColor: "#fff",
+                    data: [28, 48, 40, 19, 86, 27, 90]
+                }, {
+                    label: "2018",
+                    backgroundColor: 'rgba(220, 220, 220, 0.5)',
+                    pointBorderColor: "#fff",
+                    data: [65, 59, 80, 81, 56, 55, 40]
+                }
+            ]
+        };
+
+        var lineOptions = {
+            responsive: true
+        };
+
+
+        var ctx = document.getElementById("lineChart").getContext("2d");
+        new Chart(ctx, { type: 'line', data: lineData, options: lineOptions });
+
+
+        // Orders
+
+
+        var barData = {
+            labels: ["May", "June", "July", "August", "September", "October", "November"],
+            datasets: [
+                {
+                    label: "2018",
+                    backgroundColor: 'rgba(220, 220, 220, 0.5)',
+                    pointBorderColor: "#fff",
+                    data: [65, 59, 80, 81, 56, 55, 40]
+                },
+                {
+                    label: "2019",
+                    backgroundColor: "#D9977A",
+                    borderColor: "#ce7852",
+                    pointBackgroundColor: "#6C4B3D",
+                    pointBorderColor: "#fff",
+                    data: [28, 48, 40, 19, 86, 27, 90]
+                }
+            ]
+        };
+
+        var barOptions = {
+            responsive: true
+        };
+
+
+        var ctx2 = document.getElementById("barChart").getContext("2d");
+        new Chart(ctx2, { type: 'bar', data: barData, options: barOptions });
+
+
+        // Pie
+
+        var doughnutData = {
+            labels: ["Fantasy", "Novel", "Science Fiction", "Manga", "Music", "Popular Science", "Personal Development", "Philosophy", "Art"],
+            datasets: [{
+                data: [@Model.FirstOrDefault(x => x.Title.Equals("Fantasy")).Books.Count(), @Model.FirstOrDefault(x => x.Title.Equals("Novel")).Books.Count(),@Model.FirstOrDefault(x => x.Title.Equals("Science Fiction")).Books.Count(),@Model.FirstOrDefault(x => x.Title.Equals("Manga")).Books.Count(), @Model.FirstOrDefault(x => x.Title.Equals("Music")).Books.Count(),@Model.FirstOrDefault(x => x.Title.Equals("Popular Science")).Books.Count(), @Model.FirstOrDefault(x => x.Title.Equals("Personal Development")).Books.Count(),@Model.FirstOrDefault(x => x.Title.Equals("Philosophy")).Books.Count(), @Model.FirstOrDefault(x => x.Title.Equals("Art")).Books.Count()],
+                 backgroundColor: ["#b45d38", "#c8683f", "#ce7852", "#d38766", "#d9977a", "#dfa78e", "#e4b6a2", "#eac6b6", "#eccbbd"]
+
+            }]
+        };
+
+
+        var doughnutOptions = {
+            responsive: true
+        };
+
+
+        var ctx4 = document.getElementById("doughnutChart").getContext("2d");
+        new Chart(ctx4, { type: 'doughnut', data: doughnutData, options: doughnutOptions });
+
+
+
+    });
+</script>
+
+
+
+
+
+

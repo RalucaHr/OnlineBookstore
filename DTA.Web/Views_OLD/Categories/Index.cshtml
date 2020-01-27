@@ -1,0 +1,90 @@
+﻿@model PagedList.IPagedList<DTA.Entities.Category>
+@using PagedList;
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Edit Categories";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <!-- Default box -->
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="mb-2">All Authors</h1>
+                        <br />
+                        <p>
+                            @Html.ActionLink("Create New", "Create")
+                        </p>
+                        @using (Html.BeginForm("Index", "Categories", FormMethod.Get))
+                        {
+                            <p>
+                                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                                <button type="submit" class="btn btn-dark"> Search </button>
+                            </p>
+                        }
+                        <br />
+
+                    </div>
+                    <div class="card-body">
+
+
+                        <!-- Main content -->
+                        <section class="content">
+                            <div class="container-fluid">
+
+                                <br />
+
+                                <div class="row">
+                                    <table class="table">
+                                        <tr>
+                                            <th>
+                                                @Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.TitleSortParm })
+                                            </th>
+                                            <th>ACTIONS</th>
+                                            <th></th>
+                                        </tr>
+
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Title)
+                                                </td>
+                                                <td>
+                                                    @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId }) |
+                                                    @Html.ActionLink("Details", "Details", new { id = item.CategoryId }) |
+                                                    @Html.ActionLink("Delete", "Delete", new { id = item.CategoryId })
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    </table>
+                                </div>
+
+
+                                Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Categories
+
+                                @Html.PagedListPager(Model, page => Url.Action("Index",
+                                    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+                            </div>
+
+                        </section>
+                        <!-- /.content -->
+
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->

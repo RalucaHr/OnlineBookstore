@@ -1,0 +1,97 @@
+﻿@model DTA.Entities.Book
+
+@{
+    ViewBag.Title = "Details";
+}
+<br />
+<!-- Start main Content -->
+<div class="maincontent bg--white pt--80 pb--55">
+    <div class="container">
+        <div class="row">
+            <br /><br />
+            <div class="col-lg-12 col-12">
+                <div class="wn__single__product">
+                    <div class="row">
+                        <div class="col-lg-6 col-12">
+                            <div class="wn__fotorama__wrapper">
+                                <div>
+                                    <a href=""><img src="@Url.Content(Model.Cover)" width="240" height="320" style="margin-top:70px; margin-left:100px; "></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <div class="product__info__main">
+                                <h1>@Html.DisplayFor(model => model.Title)</h1>
+                                <div class="product-reviews-summary d-flex">                                    
+                                </div>
+                                <div class="price-box">
+                                    <span>@Html.DisplayFor(model => model.Price)</span>
+                                </div>
+                                <div class="product__overview">
+                                    <p><strong>@Html.DisplayNameFor(model => model.Author) :  </strong>@Html.DisplayFor(model => model.Author.FirstName) @Html.DisplayFor(model => model.Author.LastName)</p>
+                                    <p><strong>@Html.DisplayNameFor(model => model.Category) : </strong>@Html.DisplayFor(model => model.Category.Title)</p>
+                                    <p><strong>@Html.DisplayNameFor(model => model.Language) : </strong>@Html.DisplayFor(model => model.Language)</p>
+                                    <p><strong>@Html.DisplayNameFor(model => model.YearPublished) : </strong>@Html.DisplayFor(model => model.YearPublished)</p>
+                                    <p><strong>@Html.DisplayNameFor(model => model.ISBN) : </strong>@Html.DisplayFor(model => model.ISBN)</p>
+                                </div>
+                                <div class="box-tocart d-flex">
+                                    @using (Html.BeginForm("Add", "Ecommerce", new { param = 1 }, FormMethod.Post))
+                                    {
+                                        <span>Qty</span>
+                                        <input id="qty" class="input-text qty" name="quantity" min="1" value="1" title="Qty" type="number">
+                                        <div class="addtocart__actions">
+                                            @Html.Hidden("BookId", Model.BookId)
+                                            <button type="submit" class="tocart" onclick="increaseCartIcon()">Add to cart</button>
+
+                                        </div>
+                                    }
+                                </div>
+                                <div class="product-share">
+                                    <ul>
+                                        <li class="categories-title">Share :</li>
+                                        <li>
+                                            <a href="https://twitter.com/AFDEmpNews">
+                                                <i class="icon-social-twitter icons"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://www.youtube.com/channel/UC-BwnjnumUpmfI7nrPMSx3Q">
+                                                <i class="icon-social-youtube icons"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://www.facebook.com/afdemp/">
+                                                <i class="icon-social-facebook icons"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://www.linkedin.com/company/alliance-for-digital-employability/">
+                                                <i class="icon-social-linkedin icons"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product__info__detailed">
+                    <div class="pro_details_nav nav justify-content-start" role="tablist">
+                        <a class="nav-item nav-link active" data-toggle="tab" href="#nav-details" role="tab">@Html.DisplayNameFor(model => model.Description)</a>
+                    </div>
+                        <br />
+                        <div class="tab__container">
+                            <!-- Start Details Tab Content -->
+                            <div class="pro__tab_label tab-pane fade show active" id="nav-details" role="tabpanel">
+                                <div class="description__attribute">
+                                    <p>@Html.DisplayFor(model => model.Description)</p>
+                                </div>
+                            </div>
+                            <!-- End Details Tab Content -->
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End main Content -->

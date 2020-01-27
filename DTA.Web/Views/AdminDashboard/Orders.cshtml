@@ -1,0 +1,59 @@
+﻿@model IEnumerable<DTA.Entities.OrderItem>
+
+@{
+    ViewBag.Title = "Orders";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <!-- Default box -->
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Main content -->
+                        <section class="content">
+                            <h1>Orders</h1>
+                            <br />
+                            <div class="container-fluid">
+                                <div class="row">
+
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Order ID</th>
+                                                <th>Product</th>
+                                                <th>@Html.DisplayNameFor(model => model.Price)</th>
+                                                <th>@Html.DisplayNameFor(model => model.Quantity)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>@Html.DisplayFor(modelItem => item.OrderId)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                                                    <td>$@Html.DisplayFor(modelItem => item.Price)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </section>
+                        <!-- /.content -->
+
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->

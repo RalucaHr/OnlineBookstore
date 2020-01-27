@@ -1,0 +1,133 @@
+﻿@model DTA.Web.Models.Ecommerce.Cart
+
+@{
+    ViewBag.Title = "Shopping Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- cart-main-area start -->
+<div class="section">
+    <div class="cart-main-area section-padding--lg bg--white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 ol-lg-12">
+                    <br /><br />
+                    <h2>@ViewBag.Title</h2>
+                    <br />
+                    <form action="#">
+                        <div class="table-content wnro__table table-responsive">
+                            <table id="CartTable">
+                                <thead>
+                                    <tr class="title-top">
+                                        <th class="product-thumbnail">Image</th>
+                                        <th class="product-name">Product</th>
+                                        <th class="product-price">Price</th>
+                                        <th class="product-quantity">Quantity</th>
+                                        <th class="product-subtotal">Subtotal</th>
+                                        <th class="product-remove">Remove</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @using (Html.BeginForm("CartSubmit", "Ecommerce"))
+                                    {
+                                        foreach (var item in Model.CartItems)
+                                        {
+                                            <tr>
+                                                <td class="product-thumbnail"><img src="@Url.Content(item.Cover)" alt="product img"></td>
+                                                <td class="product-name">@Html.ActionLink(item.Title, "Details", "Books", new { id = item.BookId }, new { @class = "" })</td>
+                                                <td class="product-price"><span class="amount">$@((item.Price).ToString("0.00"))</span></td>
+                                                <td class="product-quantity"><input id="@item.BookId" type="number" value="@item.Quantity"></td>
+                                                <td class="product-subtotal">$@((item.Price * item.Quantity).ToString("0.00"))</td>
+                                                <td class="product-remove">
+                                                    @*@using (Html.BeginForm("Delete", "Ecommerce", FormMethod.Post))
+                                                    {
+                                                        @Html.Hidden("BookId", item.BookId)*@
+                                                        <button onclick="updateRow(this,@item.BookId)" type="button" class="btn btn-default btn-sm"><strong>X</strong></button>
+
+                                                    @*}*@
+                                                </td>
+
+                                            </tr>
+
+                                        }
+                                        if (!Model.CartItems.Any())
+                                        {
+                                            <tr>
+                                                <td colspan="5">No items in shopping cart</td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                    <div class="cartbox__btn">
+                        <ul class="cart__btn__list d-flex flex-wrap flex-md-nowrap flex-lg-nowrap justify-content-between">
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li><a href="#">Update Cart</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 offset-lg-6">
+                    <div class="cartbox__total__area">
+                        <div class="cart__total__amount">
+                            <span>Grand Total</span>
+                            <span>$@(Model.CartItems.Sum(x => x.Price * x.Quantity).ToString("0.00"))</span>
+                        </div>
+                        <div class="cartbox-total d-flex justify-content-between">
+                            <ul class="cart__total__list">
+                                <li>Checkout</li>
+                            </ul>
+                            <ul class="cart__total__tk">
+                                <li><form id="myContainer" method="post" action="@Url.Action("Checkout", "Ecommerce")"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <script>
+                    window.paypalCheckoutReady = function () {
+                        paypal.checkout.setup('TYVHBUYMZMTVW',
+                            {
+                                environment: 'sandbox',
+                                container: 'myContainer'
+                            });
+                    };
+                </script>
+                <script src="//www.paypalobjects.com/api/checkout.js" async></script>
+            </div>
+
+            <script>
+                function updateRow(row, bookId) {
+                    if (document.getElementById(bookId).value == 1) {
+                        deleteRow(row);
+                    } else {
+                        updateQuantity(bookId);
+                    }
+                }
+                function deleteRow(row) {
+                    var i = row.parentNode.parentNode.rowIndex;
+                    document.getElementById("CartTable").deleteRow(i);
+
+                }
+                function updateQuantity(bookId) {
+                    var x = document.getElementById(bookId);
+                    x.value = x.value - 1;
+                    
+                }
+
+
+
+            </script>
+
+
+        </div>
+    </div>
+</div>
+<!-- cart-main-area end -->

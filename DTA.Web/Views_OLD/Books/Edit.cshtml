@@ -1,0 +1,135 @@
+﻿@model DTA.Entities.Book
+@using DTA.Web
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <!-- Default box -->
+                <div class="card">
+                    <div class="card-header">
+                        <br />
+                        <h1>Edit Books</h1>
+                        <br />
+                    </div>
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm">
+                                    @using (Html.BeginForm())
+                                    {
+                                        @Html.AntiForgeryToken()
+
+                                        <div class="form-horizontal">
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            @Html.HiddenFor(model => model.BookId)
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Cover, htmlAttributes: new { @class = "control-label" })
+                                                <div class="col-md-10">
+                                                    @Html.Image(Model.Cover, "not found")
+                                                    <input type="file" name="postedFile" value="" />
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-10" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-10" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.ISBN, htmlAttributes: new { @class = "control-label col-md-10" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.ISBN, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.ISBN, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.YearPublished, htmlAttributes: new { @class = "control-label col-md-10" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.YearPublished, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.YearPublished, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Language, htmlAttributes: new { @class = "control-label col-md-10" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.Language, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.Language, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.AuthorId, "Author", htmlAttributes: new { @class = "control-label col-md-10" })
+                                                <div class="col-md-10">
+                                                    @Html.DropDownList("AuthorId", null, htmlAttributes: new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(model => model.AuthorId, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.CategoryId, "Category", htmlAttributes: new { @class = "control-label col-md-10" })
+                                                <div class="col-md-10">
+                                                    @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-10" })
+                                                <div class="col-md-10">
+                                                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = "15" })
+                                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-offset-2 col-md-10">
+                                                    <input type="submit" value="Save" class="btn btn-default" />
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    }
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+    </div>
+</section>
+<!-- /.content -->

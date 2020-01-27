@@ -1,0 +1,83 @@
+﻿@model DTA.Web.Models.ExternalLoginConfirmationViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Register";
+}
+
+<!-- Start My Account Area -->
+<section class="my_account_area pt--80 pb--55 bg--white">
+    <div class="container">
+        <br />
+        <h2>@ViewBag.Title.</h2>
+        <h3>Associate your @ViewBag.LoginProvider account.</h3>
+        <br />
+        <div class="row">
+            <div class="col-lg-8 col-12">
+                <div class="my__account__wrapper">
+                    <div class="account__form">
+
+                        <section id="loginForm">
+
+
+                            @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <h4>Association Form</h4>
+                                <hr />
+                                <br />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <p class="text-info">
+                                    You've successfully authenticated with <strong>@ViewBag.LoginProvider</strong>.
+                                    Please enter a user name for this site below and click the Register button to finish
+                                    logging in.
+                                </p>
+                                <br />
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.HomeTown, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.HomeTown, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.HomeTown)
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.BirthDate, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.BirthDate, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.BirthDate)
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" class="form__btn" value="Register" />
+                                    </div>
+                                </div>
+                            }
+
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br />
+<!-- End My Account Area -->
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
